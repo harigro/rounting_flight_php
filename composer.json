@@ -1,0 +1,16 @@
+{
+    "name": "project/routing_flight_php",
+    "description": "aplikasi routing menggunakan kerangka kerja flight php.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "harigro",
+            "email": "trierbank@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "mikecao/flight": "^3.13"
+    }
+}
