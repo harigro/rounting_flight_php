@@ -3,6 +3,7 @@
 Proyek ini adalah contoh sederhana penggunaan **Flight PHP** sebagai framework mikro untuk membuat routing di PHP.  
 
 ## **Fitur**
+
 - Routing dasar dengan Flight PHP  
 - Mendukung parameter di URL  
 - Menggunakan `.htaccess` untuk routing yang bersih  
@@ -11,113 +12,106 @@ Proyek ini adalah contoh sederhana penggunaan **Flight PHP** sebagai framework m
 ---
 
 ## **1. Persyaratan**
+
 Pastikan sistem telah memiliki:
-- **PHP 7.4+**
-- **Composer**
-- **XAMPP** (opsional)
+
+- **PHP == v8.2.12+**
+- **Composer == v2.8.2**
+- **XAMPP == v8.2.12** (opsional)
 
 ---
 
 ## **2. Instalasi**
+
 ### **a) Clone Repository (Opsional)**
+
 ```sh
-git clone https://github.com/username/flight-app.git
-cd flight-app
+git clone https://github.com/harigro/rounting_flight_php.git
+cd rounting_flight_php
 ```
 
-### **b) Install Flight PHP dengan Composer**
+### **b) Instalasi semua dependensi menggunakan Composer**
+
 Jalankan perintah berikut di terminal/cmd dalam direktori proyek:
+
 ```sh
-composer require mikecao/flight
+composer install
 ```
 
 ---
 
 ## **3. Struktur Proyek**
-```
-/flight-app
+
+```sh
+/rounting_flight_php
 ├── /public
 │   ├── index.php
+│   ├── .htaccess
 ├── /src
 │   ├── routes.php
 ├── composer.json
-├── .htaccess
+├── composer.lock
+├── LICENCE
+├── README.md
 ```
 
 - **`public/index.php`** → File utama yang menjalankan aplikasi  
-- **`src/routes.php`** → Konfigurasi routing  
-- **`.htaccess`** → Mengatur rewrite rule untuk akses yang bersih  
+- **`public/.htaccess`** → Mengatur rewrite rule untuk akses yang bersih 
+- **`src/routes.php`** → Konfigurasi routing
 
 ---
 
-## **4. Konfigurasi Virtual Host (Opsional)**
-Jika menggunakan **XAMPP**, bisa mengatur **Virtual Host** agar dapat mengakses proyek dengan nama domain khusus (`flight.local`).
+## **4. Konfigurasi Xampp**
 
-1. **Edit `httpd-vhosts.conf`**
-   Tambahkan konfigurasi berikut di:
-   ```
-   C:\xampp\apache\conf\extra\httpd-vhosts.conf
-   ```
-   ```
-   <VirtualHost *:80>
-       DocumentRoot "C:/xampp/htdocs/flight-app/public"
-       ServerName flight.local
-       <Directory "C:/xampp/htdocs/flight-app/public">
-           AllowOverride All
-           Require all granted
-       </Directory>
-   </VirtualHost>
-   ```
+Jika anda menggunakan `xampp` wajib mengisi file `.htaccess` dengan kode berikut :
 
-2. **Tambahkan Domain ke Hosts File**
-   Edit file:
-   ```
-   C:\Windows\System32\drivers\etc\hosts
-   ```
-   Tambahkan:
-   ```
-   127.0.0.1 flight.local
-   ```
+```sh
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+```
 
-3. **Restart Apache di XAMPP**
+atau
+
+```sh
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+```
 
 ---
 
 ## **5. Menjalankan Aplikasi**
-### **a) Dengan PHP Built-in Server**
-Jalankan perintah berikut:
+
+Jalankan perintah berikut
+
 ```sh
 php -S localhost:8080 -t public
 ```
-Buka di browser:
-- `http://localhost:8080/`
-- `http://localhost:8080/hello/Ali`
-- `http://localhost:8080/about`
 
-### **b) Dengan XAMPP (Tanpa Virtual Host)**
-Akses di browser:
-- `http://localhost/flight-app/public/`
-- `http://localhost/flight-app/public/hello/Ali`
-- `http://localhost/flight-app/public/about`
-
-### **c) Dengan Virtual Host (Jika Dikustomisasi)**
-Akses di browser:
-- `http://flight.local/`
-- `http://flight.local/hello/Ali`
-- `http://flight.local/about`
+atau jika menggunakan menggunakan `xampp` arahkan ke direktori
+```sh
+rounting_flight_php/public
+```
 
 ---
 
 ## **6. Routing yang Tersedia**
-| Endpoint             | Deskripsi                      |
-|----------------------|----------------------------------|
-| `/`                 | Menampilkan pesan selamat datang |
-| `/halo/@nama`      | Menampilkan `Halo, {nama}!`    |
-| `/perihal`           | Menampilkan halaman "perihal"    |
+
+| Endpoint      | Deskripsi                        |
+| ------------- | -------------------------------- |
+| `/`           | Menampilkan pesan selamat datang |
+| `/halo/@nama` | Menampilkan `Halo, {nama}!`      |
+| `/perihal`    | Menampilkan halaman "perihal"    |
 
 ---
 
 ## **7. Lisensi**
+
 Proyek ini menggunakan lisensi **MIT**. Silakan digunakan dan dimodifikasi sesuai kebutuhan.  
 
 ---
